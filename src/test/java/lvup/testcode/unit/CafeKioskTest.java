@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
 import lvup.testcode.unit.beverage.Americano;
+import lvup.testcode.unit.beverage.Latte;
 import lvup.testcode.unit.order.Order;
 import org.junit.jupiter.api.Test;
 
@@ -74,4 +75,16 @@ class CafeKioskTest {
   * ex 표준 출력, 메시지 발솔, 데이터베이스에 기록하기 등
   */
 
+ @Test
+ void calculateTotalPrice(){
+  CafeKiosk cafeKiosk =  new CafeKiosk();
+  Americano americano = new Americano();
+  Latte latte = new Latte();
+  cafeKiosk.add(americano);
+  cafeKiosk.add(latte);
+
+  int total = cafeKiosk.calculateTotalPrice();
+
+  assertThat(total).isEqualTo(8500);
+ }
 }
