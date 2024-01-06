@@ -1,4 +1,4 @@
-package lvup.testcode.spring.domain.api.controler.product;
+package lvup.testcode.spring.domain.api.controller.product;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;

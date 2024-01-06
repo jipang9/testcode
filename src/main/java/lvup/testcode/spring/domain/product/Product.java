@@ -7,10 +7,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lvup.testcode.spring.domain.BaseEntity;
-import lvup.testcode.spring.domain.product.enums.ProductsellingStatus;
+import lvup.testcode.spring.domain.product.enums.ProductSellingStatus;
 import lvup.testcode.spring.domain.product.enums.ProductType;
 
 @Getter
@@ -28,10 +29,19 @@ public class Product extends BaseEntity {
   private ProductType type;
 
   @Enumerated(EnumType.STRING)
-  private ProductsellingStatus sellingStatus;
+  private ProductSellingStatus sellingStatus;
 
   private String name;
 
   private int price;
 
+
+  @Builder
+  private Product(String productNumber, ProductType type, ProductSellingStatus sellingStatus, String name, int price) {
+    this.productNumber = productNumber;
+    this.type = type;
+    this.sellingStatus = sellingStatus;
+    this.name = name;
+    this.price = price;
+  }
 }

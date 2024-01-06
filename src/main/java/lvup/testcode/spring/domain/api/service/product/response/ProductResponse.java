@@ -3,7 +3,7 @@ package lvup.testcode.spring.domain.api.service.product.response;
 import lombok.Builder;
 import lombok.Getter;
 import lvup.testcode.spring.domain.product.Product;
-import lvup.testcode.spring.domain.product.enums.ProductsellingStatus;
+import lvup.testcode.spring.domain.product.enums.ProductSellingStatus;
 import lvup.testcode.spring.domain.product.enums.ProductType;
 
 @Getter
@@ -15,7 +15,7 @@ public class ProductResponse {
 
   private ProductType type;
 
-  private ProductsellingStatus sellingType;
+  private ProductSellingStatus sellingType;
 
   private String name;
 
@@ -23,7 +23,7 @@ public class ProductResponse {
 
   @Builder
   public ProductResponse(Long id, String productNumber, ProductType type,
-      ProductsellingStatus sellingType, String name, int price) {
+      ProductSellingStatus sellingType, String name, int price) {
     this.id = id;
     this.productNumber = productNumber;
     this.type = type;

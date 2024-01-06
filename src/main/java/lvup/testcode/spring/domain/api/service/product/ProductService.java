@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lvup.testcode.spring.domain.api.service.product.response.ProductResponse;
 import lvup.testcode.spring.domain.product.Product;
 import lvup.testcode.spring.domain.product.ProductRepository;
-import lvup.testcode.spring.domain.product.enums.ProductsellingStatus;
+import lvup.testcode.spring.domain.product.enums.ProductSellingStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +19,7 @@ public class ProductService {
   public List<ProductResponse> getSellingProducts(){
 
     final List<Product> products = productRepository.findAllBySellingStatusIn(
-        ProductsellingStatus.forDisplay());
+        ProductSellingStatus.forDisplay());
     return products.stream().map(ProductResponse::of).collect(Collectors.toList());
 
   }
