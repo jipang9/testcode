@@ -1,7 +1,8 @@
 package lvup.testcode.spring.domain.api.service.order;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import lvup.testcode.spring.ItemFactory;
 import lvup.testcode.spring.domain.api.controller.order.request.OrderCreateRequest;
@@ -31,6 +32,8 @@ class OrderServiceTest {
   public void OrderServiceTest(){
       //given
 
+    LocalDateTime registeredDateTime = LocalDateTime.now();
+
     final Product product1 = itemFactory.createProduct("001", ProductType.HANDMADE,
         ProductSellingStatus.SELLING, "아메리카노", 1000);
     final Product product2 = itemFactory.createProduct("002", ProductType.HANDMADE,
@@ -43,12 +46,13 @@ class OrderServiceTest {
     final OrderCreateRequest request = OrderCreateRequest.builder()
         .productNumbers(List.of("001", "002")).build();
 
-    OrderResponse orderResponse = orderService.createOrder(request);
     //when
-
-
+    OrderResponse orderResponse = orderService.createOrder(request);
 
     //then
-
+    assertThat(orderResponse.getId()).isNotNull();
+    assertThat(orderResponse)
+        .extracting("registeredDateTime", "totalPrice")
+        .contains(registeredDateTime, 4000);
   }
 }
