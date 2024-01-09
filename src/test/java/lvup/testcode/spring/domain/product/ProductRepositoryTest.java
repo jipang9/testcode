@@ -26,7 +26,7 @@ class ProductRepositoryTest {
 
   @Test
   @DisplayName("원하는 판매상태를 가진 상품 조회")
-  public void ProductRepositoryTest() throws Exception {
+  public void ProductRepositoryTest() {
     //given
     final Product product1 = Product.builder()
         .productNumber("001")
@@ -60,6 +60,49 @@ class ProductRepositoryTest {
     //then
 
     assertThat(products).hasSize(2)
+        .extracting("productNumber", "name", "sellingStatus")
+        .containsExactlyInAnyOrder(
+            tuple("001", "아메리카노", SELLING),
+            tuple("002", "카페라떼", HOLD)
+        );
+  }
+
+  @Test
+  @DisplayName("상품 번호(리스트)로 상품 조회 테스트 ")
+  void findAllByProductNumberIn(){
+    //given
+    final Product product1 = Product.builder()
+        .productNumber("001")
+        .type(ProductType.HANDMADE)
+        .sellingStatus(SELLING)
+        .name("아메리카노")
+        .price(4000)
+        .build();
+
+    final Product product2 = Product.builder()
+        .productNumber("002")
+        .type(ProductType.HANDMADE)
+        .sellingStatus(HOLD)
+        .name("카페라떼")
+        .price(4500)
+        .build();
+
+    final Product product3 = Product.builder()
+        .productNumber("003")
+        .type(ProductType.HANDMADE)
+        .sellingStatus(ProductSellingStatus.STOP_SELLING)
+        .name("팥빙수")
+        .price(7000)
+        .build();
+
+    productRepository.saveAll(List.of(product1, product2, product3));
+    //when
+
+    final List<Product> byProductNumberIn = productRepository.findByProductNumberIn(
+        List.of("001", "002"));
+    //then
+
+    assertThat(byProductNumberIn).hasSize(2)
         .extracting("productNumber", "name", "sellingStatus")
         .containsExactlyInAnyOrder(
             tuple("001", "아메리카노", SELLING),

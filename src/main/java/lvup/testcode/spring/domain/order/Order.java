@@ -54,6 +54,9 @@ public class Order extends BaseEntity {
         .collect(Collectors.toList());
   }
 
+  public Order(List<Product> products){
+    return null;
+  }
   public static Order create(List<Product> products, LocalDateTime registeredDateTime) {
     return Order.builder()
         .orderStatus(OrderStatus.INIT)

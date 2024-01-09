@@ -1,6 +1,7 @@
 package lvup.testcode.spring.domain.api.service.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,5 +55,11 @@ class OrderServiceTest {
     assertThat(orderResponse)
         .extracting("registeredDateTime", "totalPrice")
         .contains(registeredDateTime, 4000);
+    assertThat(orderResponse.getProducts()).hasSize(2)
+        .extracting("productNumber", "price")
+        .containsExactlyInAnyOrder(
+            tuple("001", 1000),
+            tuple("002", 3000)
+        );
   }
 }
